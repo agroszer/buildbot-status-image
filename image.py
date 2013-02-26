@@ -4,8 +4,14 @@
 
 import os
 from buildbot.status import html
-from buildbot.status.results import SUCCESS, WARNINGS, FAILURE, SKIPPED, EXCEPTION
-from buildbot.status.results import Results
+try:
+    # buildbot 0.8.7p1
+    from buildbot.status.results import SUCCESS, WARNINGS, FAILURE, SKIPPED, EXCEPTION
+    from buildbot.status.results import Results
+except ImportError:
+    # buildbot 0.8.0
+    from buildbot.status.builder import SUCCESS, WARNINGS, FAILURE, EXCEPTION, RETRY
+    from buildbot.status.builder import Results
 from buildbot.status.web.base import HtmlResource
 
 class BuildStatusImageResource(HtmlResource):
